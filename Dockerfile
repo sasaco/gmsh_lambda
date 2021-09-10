@@ -36,5 +36,5 @@ RUN chmod 700 ~/.ssh
 ENV PATH="/opt/cargo/bin:${PATH}"
 
 # custom
-COPY app.py   ./
-CMD ["app.handler"]  
+# COPY app.py   ./
+# CMD ["app.handler"]  
