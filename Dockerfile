@@ -188,6 +188,8 @@ RUN pip install \
         --target ${FUNCTION_DIR} \
         awslambdaric
 
+RUN pip install gmsh -t /usr/lib/python3/dist-packages
+
 # Multi-stage build: grab a fresh copy of the base image
 FROM python:buster
 
