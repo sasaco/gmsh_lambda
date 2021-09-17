@@ -12,6 +12,8 @@ RUN apt-get update && \
   unzip \
   libcurl4-openssl-dev
 
+RUN apt-get install -y libgl1-mesa-dev
+
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
 # Create function directory
@@ -24,6 +26,13 @@ COPY app/* ${FUNCTION_DIR}
 RUN pip install \
         --target ${FUNCTION_DIR} \
         awslambdaric
+
+RUN pip install gmsh
+ENV PYTHONPATH=/usr/local/lib/python3.9/site-packages/gmsh-4.8.4-Linux64-sdk/lib/
+
+#check gmsh python package
+RUN python -c "import gmsh;print(gmsh.__version__);"
+
 
 # Multi-stage build: grab a fresh copy of the base image
 FROM python:buster
@@ -38,4 +47,3 @@ COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
 
 ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
 CMD [ "app.handler" ]
-        

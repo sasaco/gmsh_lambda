@@ -23,10 +23,16 @@ COPY app/* ${FUNCTION_DIR}
 # Install the runtime interface client
 RUN pip install \
         --target ${FUNCTION_DIR} \
-        awslambdaric && \
-    pip install \
-        --target ${FUNCTION_DIR} \
-        gmsh
+        awslambdaric
+
+
+RUN apt-get install -y libgl1-mesa-dev
+RUN pip install gmsh
+ENV PYTHONPATH=/usr/local/lib/python3.9/site-packages/gmsh-4.8.4-Linux64-sdk/lib/
+
+#check gmsh python package
+RUN python -c "import gmsh;print(gmsh.__version__);"
+
 
 # Multi-stage build: grab a fresh copy of the base image
 FROM python:buster
