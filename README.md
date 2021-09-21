@@ -115,9 +115,8 @@ https://gitlab.onelab.info/gmsh/gmsh/-/issues/1023
 
 下記を実行
 
-```python
-import sys
-sys.path.append('/usr/local/lib/python3.8/site-packages/gmsh-4.8.4-Linux64-sdk/lib')
+```Dockerfile
+ENV PYTHONPATH=/usr/local/lib/python3.9/site-packages/gmsh-4.8.4-Linux64-sdk/lib/
 ```
 
 ## 2.Docker イメージを Amazon ECR にプッシュする手順
@@ -194,7 +193,7 @@ AWS コンソールで確認すると cocker イメージが Amaxon ECR リポ�
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/142847/61fb0ee6-f60f-9031-fc04-1cd5c3b53387.png)
 
-できました 今回の Lambda関数名 は, **docker_test** としました
+できました 今回の Lambda関数名 は, **gmsh** としました
 
 ![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/142847/0fa08f3e-b842-de4e-7c7d-a044a42cb4b3.png)
 

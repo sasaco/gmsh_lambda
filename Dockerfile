@@ -10,11 +10,19 @@ RUN apt-get update && \
   make \
   cmake \
   unzip \
-  libcurl4-openssl-dev
+  libglu1 \
+  libxcursor-dev \
+  libxft2 \
+  libxinerama1 \
+  libfltk1.3-dev \ 
+  libfreetype6-dev  \
+  libgl1-mesa-dev \
+  libocct-foundation-dev \
+  libocct-data-exchange-dev 
 
 # Include global arg in this stage of the build
 ARG FUNCTION_DIR
-# Create function directory
+# Create function dipip rectory
 RUN mkdir -p ${FUNCTION_DIR}
 
 # Copy function code
@@ -25,25 +33,19 @@ RUN pip install \
         --target ${FUNCTION_DIR} \
         awslambdaric
 
-
-RUN apt-get install -y libgl1-mesa-dev
+# install gmsh
 RUN pip install gmsh
+
+# 2021.08.22 現在 import gmsh に失敗するので
+# python の参照path に追加
 ENV PYTHONPATH=/usr/local/lib/python3.9/site-packages/gmsh-4.8.4-Linux64-sdk/lib/
 
-#check gmsh python package
-RUN python -c "import gmsh;print(gmsh.__version__);"
-
-
-# Multi-stage build: grab a fresh copy of the base image
-FROM python:buster
-
-# Include global arg in this stage of the build
-ARG FUNCTION_DIR
-# Set working directory to function root directory
+# WORKDIR 命令は、Dockerfile 内で以降に続く 
+# RUN 、 CMD 、 ENTRYPOINT 、 COPY 、 ADD 命令の
+# 処理時に（コマンドを実行する場所として）使う 
+# 作業ディレクトリworking directory を指定します。
 WORKDIR ${FUNCTION_DIR}
 
-# Copy in the build image dependencies
-COPY --from=build-image ${FUNCTION_DIR} ${FUNCTION_DIR}
-
+# 
 ENTRYPOINT [ "/usr/local/bin/python", "-m", "awslambdaric" ]
 CMD [ "app.handler" ]
