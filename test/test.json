@@ -1,0 +1,4 @@
+{
+    "dim": 3,
+    "geo": "lc = 0.2;\nPoint(1) = {0,0,0,lc};\nPoint(2) = {1,0,0,lc};\nPoint(6) = {0,0,3,lc};\nLine(1) = {1,2};\nLine(2) = {2,6};\nLine(3) = {6,1};\nCurve Loop(4) = {2,3,1};\nPlane Surface(5) = {4};\nExtrude {{0,0,1}, {0,0,0}, Pi/2} { Surface{5}; }\nExtrude {{0,0,1}, {0,0,0}, Pi/2} { Surface{17}; }\nExtrude {{0,0,1}, {0,0,0}, Pi/2} { Surface{29}; }\nExtrude {{0,0,1}, {0,0,0}, Pi/2} { Surface{41}; }"
+}
