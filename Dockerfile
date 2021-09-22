@@ -28,6 +28,8 @@ RUN mkdir -p ${FUNCTION_DIR}
 # Copy function code
 COPY app/* ${FUNCTION_DIR}
 
+COPY tmp/* /tmp/
+
 # Install the runtime interface client
 RUN pip install \
         --target ${FUNCTION_DIR} \

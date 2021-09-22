@@ -3,8 +3,8 @@ import gmsh
 
 def handler(event, context):
 
-    temp_input_path = 'temp.geo'
-    temp_output_path = 'temp.msh'
+    temp_input_path = '/tmp/tmp.geo'
+    temp_output_path = '/tmp/tmp.msh'
 
     # 引数
     geo = event['geo']
@@ -31,6 +31,9 @@ def handler(event, context):
     # 返す
     return {
         "statusCode": 200,
+        "headers": {
+            "Content-Type": "application/json"
+        },
         "body": json.dumps(
             {
                 "msh": msh,

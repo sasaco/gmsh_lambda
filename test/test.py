@@ -13,8 +13,8 @@ def write_file(out_text, fnameR='test/test.out.json'):
     fout.close()
 
 
-temp_input_path = 'app/temp.geo'
-temp_output_path = 'app/temp.msh'
+temp_input_path = 'tmp/tmp.geo'
+temp_output_path = 'tmp/tmp.msh'
 
 js = json.loads(read_file(), object_pairs_hook=dict)
 write_file(js['geo'], temp_input_path)
