@@ -7,8 +7,12 @@ def handler(event, context):
     temp_output_path = '/tmp/tmp.msh'
 
     # 引数
-    geo = event['geo']
-    dim = event['dim']
+    if "body" in event:
+        js = json.loads(event["body"])
+    else:
+        js = event
+    geo = js['geo']
+    dim = js['dim']
 
     # geo ファイルを 書き込む
     fout=open(temp_input_path, 'w')
